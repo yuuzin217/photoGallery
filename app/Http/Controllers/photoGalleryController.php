@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\photoGalleryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\PhotoGalleryRequest;
 
 class PhotoGalleryController extends Controller
@@ -58,5 +59,20 @@ class PhotoGalleryController extends Controller
         }
 
         return redirect('/')->with('success', '画像をアップロードしました。'); // 成功メッセージ
+    }
+
+    /**
+     * 画像の削除
+     *
+     * @param $id
+     * @return Response
+     */
+    public function delete($id)
+    {
+        $image = photoGalleryModel::find($id); // idから特定のレコードを抽出
+        Storage::delete($image->path);         // imageフォルダから画像を削除
+        $image->delete();                      // DBから特定の画像データを削除
+
+        return redirect('/')->with('success', '画像を削除しました'); // 成功メッセージ
     }
 }
