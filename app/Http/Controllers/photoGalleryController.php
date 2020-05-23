@@ -16,7 +16,23 @@ class PhotoGalleryController extends Controller
      */
     public function index()
     {
-        return view('photoGallery'); // テンプレートに返す
+        $search        = ["public", "\\"];                               // パスを書き換えるのに利用
+        $replace       = ["storage", ""];                                // パスを書き換えるのに利用
+        $imagesAll     = photoGalleryModel::select('path', 'id')->get(); // DBから画像情報取得
+        $countImages   = count($imagesAll);                              // 画像数を取得
+        $imagesAllPath = [];                                             // すべてのimageパスを格納
+
+        // DBから取得したimageパスを配列に格納
+        foreach ($imagesAll as $image) {
+            $id = $image->id;                                     // idを取得
+            $path = str_replace($search, $replace, $image->path); // 画像パスを書き換えて取得
+            $imagesAllPath[] = [                                  // idとパスを配列に格納
+                'id' => $id,
+                'path' => $path
+            ];
+        }
+
+        return view('photoGallery', compact('imagesAllPath', 'countImages')); // テンプレートに返す
     }
 
     /**

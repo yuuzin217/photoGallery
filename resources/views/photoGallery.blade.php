@@ -13,6 +13,15 @@
             </div>
         @endif
 
+        <!-- 画像一覧表示 -->
+        <table id="tbl">
+            @foreach ($imagesAllPath as $image)
+                <div class="img">
+                    <img src="{{ $image['path'] }}" width="20%" height="20%">
+                </div>
+            @endforeach
+        </table>
+
         <!-- 画像アップロードフォーム -->
         <form id="uploadForm" method="POST" action="" enctype="multipart/form-data">
             <input type="file" multiple name="photos[]">
