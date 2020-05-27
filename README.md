@@ -1,2 +1,2 @@
 # photoGallery
-フォトギャラリー
+PHPとlaravelで作成したフォトギャラリーです。
