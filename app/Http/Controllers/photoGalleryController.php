@@ -69,9 +69,11 @@ class PhotoGalleryController extends Controller
      */
     public function delete($id)
     {
-        $image = photoGalleryModel::find($id); // idから特定のレコードを抽出
-        Storage::delete($image->path);         // imageフォルダから画像を削除
-        $image->delete();                      // DBから特定の画像データを削除
+        $image = photoGalleryModel::find($id);     // idから特定のレコードを抽出
+        Storage::delete($image->path);             // imageフォルダから画像を削除
+        DB::transaction(function () use ($image) { // トランザクション
+            $image->delete();                      // DBから特定の画像データを削除
+        });
 
         return redirect('/')->with('success', '画像を削除しました'); // 成功メッセージ
     }
