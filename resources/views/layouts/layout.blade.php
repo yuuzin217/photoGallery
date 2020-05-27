@@ -5,6 +5,7 @@
     <!-- タイトル -->
     <title>@yield('title')</title>
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/layouts/layout.css') }}">
     @yield('css')
 </head>
 <body>

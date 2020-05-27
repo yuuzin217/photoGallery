@@ -1,0 +1,49 @@
+body {
+  background-color: lightgray;
+}
+#photomain {
+  margin: 50px 200px;
+  padding: 15px;
+  box-shadow: 0 0 20px gray;
+  background-color: white;
+}
+.container {
+  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: wrap;
+}
+.container .img {
+  flex: 140px;
+  width: 100%;
+  height: auto;
+  margin: 0 5px 16px 0;
+  padding: 0;
+  font-size: 14px;
+  text-align: center;
+  box-sizing: border-box;
+  /* background-color: #ffd; */
+  /* border:1px solid #933; */
+}
+.img dd {
+  margin: 0;
+  padding: 0;
+}
+.container .img img {
+  border: 0;
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+}
+.delete {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border: solid 1px;
+}
+.delete:hover {
+	background: #2a82a3;
+	color: #FFF;
+	border: 1px solid #FFF;
+}
