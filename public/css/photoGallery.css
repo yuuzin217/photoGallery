@@ -47,3 +47,7 @@ body {
 	color: #FFF;
 	border: 1px solid #FFF;
 }
+#uploadForm {
+  text-align: center;
+}
+#lightbox .lb-container { padding: 3px; }
