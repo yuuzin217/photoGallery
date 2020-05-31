@@ -5,6 +5,7 @@
     <!-- タイトル -->
     <title>@yield('title')</title>
     <!-- Styles -->
+    <script src="{{ asset('jquery/jquery-3.5.1.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/layouts/layout.css') }}">
     @yield('css')
 </head>
@@ -21,5 +22,5 @@
 
     <!-- JavaScript -->
     @yield('js')
-</body>
+    </body>
 </html>

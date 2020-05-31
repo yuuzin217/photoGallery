@@ -2,6 +2,7 @@
 @section('title', 'フォトギャラリー')
 @section('css')
     <link href="{{ asset('css/photoGallery.css') }}" rel="stylesheet">
+    <link href="{{ asset('lightbox2/lightbox.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
     <div id="photomain">
@@ -29,7 +30,9 @@
             @foreach ($imagesAllPath as $image)
                 <dl class="img">
                     <dd>
-                        <img src="{{ $image['path'] }}">
+                        <a href="{{ $image['path'] }}" data-lightbox="images" data-title="{{ $image['name'] }}">
+                            <img src="{{ $image['path'] }}" alt="{{ $image['name'] }}">
+                        </a>
                     </dd>
                     <dd>
                         {{ $image['name'] }}
@@ -43,7 +46,7 @@
                     {{ method_field('DELETE') }}
                 </form>
             @endforeach
-                @for ($i = 0; $i < $image['emptyColumn']; $i++)
+                @for ($i = 0; $i < 3; $i++)
                     <dl class="img">
                     </dl>
                 @endfor
@@ -59,5 +62,6 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{ asset('lightbox2/lightbox.min.js') }}"></script>
     <script src="{{ asset('js/photoGallery.js') }}"></script>
 @endsection
