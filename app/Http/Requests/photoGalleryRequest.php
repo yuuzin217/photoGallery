@@ -46,8 +46,8 @@ class photoGalleryRequest extends FormRequest
          * sizeルールと同様の判定方法で、文字列、数値、配列、ファイルが評価されます。
          */
         return [
-            'photos' => 'required',
-            'photos.*' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images'   => 'required',
+            'images.*' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

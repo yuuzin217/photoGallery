@@ -54,7 +54,7 @@
 
         {{-- 画像アップロードフォーム --}}
         <form id="uploadForm" method="POST" action="" enctype="multipart/form-data">
-            <input type="file" multiple name="photos[]">
+            <input type="file" multiple name="images[]">
             @csrf
             <input type="submit" value="アップロード">
         </form>
