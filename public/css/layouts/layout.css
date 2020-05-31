@@ -1,12 +1,21 @@
 body {
   margin: 0;
+  font-family: Verdana, sans-serif;
 }
 header h1 {
   margin: 0;
+  text-shadow:0px 3px 0px #666666,
+  10px 10px 10px #AAAAAA,
+  10px 10px 2px #AAAAAA,
+  10px 10px 30px #AAAAAA;
 }
 header {
   text-align: center;
+  padding-top: 64px; /* 見出しの上に余白 */
 }
 footer {
+  background: #222222;
+  color: #fff;
+  padding: 64px 0;
   text-align: center;
 }
