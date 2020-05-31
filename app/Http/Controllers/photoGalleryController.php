@@ -17,29 +17,24 @@ class PhotoGalleryController extends Controller
      */
     public function index()
     {
-        $search        = ["public", "\\"];                               // パスを書き換えるのに利用
-        $replace       = ["storage", ""];                                // パスを書き換えるのに利用
-        $imagesAll = photoGalleryModel::
-        select('id', 'original_name', 'path')->get(); // DBから画像情報取得
-        $countImages   = count($imagesAll);                              // 画像数を取得
-        $imagesAllPath = [];                                             // すべてのimageパスを格納
-
-        $emptyColumn = 4 - (count($imagesAll) % 4);
+        $imagesAllPath = [];
+        $search  = ["public", "\\"];                  // パスを書き換えるのに利用
+        $replace = ["storage", ""];                   // パスを書き換えるのに利用
+        $imagesAll = photoGalleryModel::select('id', 'original_name', 'path')->get();
 
         // DBから取得したimageパスを配列に格納
         foreach ($imagesAll as $image) {
-            $id = $image->id;                                     // idを取得
+            $id = $image->id;
             $name = $image->original_name;
-            $path = str_replace($search, $replace, $image->path); // 画像パスを書き換えて取得
-            $imagesAllPath[] = [                                  // idとファイル名とパスを配列に格納
+            $path = str_replace($search, $replace, $image->path);
+            $imagesAllPath[] = [
                 'id'   => $id,
                 'name' => $name,
                 'path' => $path,
-                'emptyColumn' => $emptyColumn
             ];
         }
 
-        return view('photoGallery', compact('imagesAllPath', 'countImages')); // テンプレートに返す
+        return view('photoGallery', compact('imagesAllPath'));
     }
 
     /**
@@ -49,14 +44,16 @@ class PhotoGalleryController extends Controller
      */
     public function store(PhotoGalleryRequest $request)
     {
-        $photos = $request->photos; // リクエストから画像データを取得
+        $photos = $request->photos;
 
         // 画像をDBに保存
         for ($i = 0; $i < count($photos); $i++) {
-            $photoName = $request->photos[$i]->getClientOriginalName();        // 画像ファイル名を取得
+            $photoName = $request->photos[$i]->getClientOriginalName();
             $path = $request->photos[$i]->store('public/photoGallery_images'); // 画像をimageフォルダに保存して、画像パス取得
-            DB::transaction(function () use ($photoName, $path) {              // トランザクション追加
-                $save = photoGalleryModel::create([                            // DBに値を保存
+
+            // DBに値を保存
+            DB::transaction(function () use ($photoName, $path) {
+                $save = photoGalleryModel::create([
                     'user_id'       => 1, // IDは仮で指定
                     'original_name' => $photoName,
                     'path'          => $path
@@ -64,7 +61,7 @@ class PhotoGalleryController extends Controller
             });
         }
 
-        return redirect('/')->with('success', '画像をアップロードしました。'); // 成功メッセージ
+        return redirect('/')->with('success', '画像をアップロードしました。');
     }
 
     /**
@@ -75,12 +72,12 @@ class PhotoGalleryController extends Controller
      */
     public function delete($id)
     {
-        $image = photoGalleryModel::find($id);     // idから特定のレコードを抽出
+        $image = photoGalleryModel::find($id);
         Storage::delete($image->path);             // imageフォルダから画像を削除
-        DB::transaction(function () use ($image) { // トランザクション
-            $image->delete();                      // DBから特定の画像データを削除
+        DB::transaction(function () use ($image) { // DBから特定の画像データを削除
+            $image->delete();
         });
 
-        return redirect('/')->with('success', '画像を削除しました'); // 成功メッセージ
+        return redirect('/')->with('success', '画像を削除しました');
     }
 }
