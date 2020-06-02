@@ -47,4 +47,17 @@ class PhotoGalleryController extends Controller
         $model->deleteImage($id);
         return redirect('/')->with('success', '画像を削除しました');
     }
+
+    /**
+     * 設定
+     *
+     * @param $request
+     * @param string $id
+     */
+    public function setting(Request $request)
+    {
+        $model = new photoGalleryModel;
+        $model->setting($request->all());
+        return redirect('/')->with('success', '設定しました');
+    }
 }

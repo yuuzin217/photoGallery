@@ -74,4 +74,25 @@ class photoGalleryModel extends Model
             $image->delete();
         });
     }
+
+    /**
+     * 画像の設定
+     *
+     * @param array $setData
+     */
+    public function setting(array $setData)
+    {
+        // 論理削除 or 物理削除
+        if ($setData['delMethod']) {
+        } else {
+        }
+
+        if (isset($setData['allDelete'])) {
+            // 全レコード物理削除
+            Storage::deleteDirectory('public/photoGallery_images');
+            DB::transaction(function () {
+                DB::table('images_path')->delete();
+            });
+        }
+    }
 }
