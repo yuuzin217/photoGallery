@@ -1,18 +1,47 @@
 body {
   background-color: lightgray;
 }
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 200px;
+  display: flex;
+}
+.menu li a {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  padding: 8px 0;
+  background: white;
+  color: #333;
+  text-decoration: none;
+  border: solid #333;
+  border-width: 1px 1px 0 1px;
+  border-radius: 4px 4px 0 0;
+}
+.menu li a.active {
+  background: #333;
+  color: #fff;
+}
+.menu li a:not(.active):hover {
+  opacity: 0.5;
+  transition: opacity 0.4s;
+}
 #photomain {
-  margin: 50px 200px;
+  margin: 0 200px 50px;
   padding: 15px;
   box-shadow: 0 0 20px gray;
   background-color: white;
 }
-.container {
+.container.active {
   font-family: Arial, sans-serif;
   max-width: 700px;
   margin: 0 auto;
   display: flex;
   flex-flow: wrap;
+}
+.container {
+  display: none;
 }
 .container .img {
   flex: 140px;
@@ -46,6 +75,12 @@ body {
 	background: #2a82a3;
 	color: #FFF;
 	border: 1px solid #FFF;
+}
+.setting {
+  list-style: none;
+}
+#uploadForm.none{
+  display: none;
 }
 #uploadForm {
   text-align: center;

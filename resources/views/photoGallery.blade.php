@@ -5,6 +5,13 @@
     <link href="{{ asset('lightbox2/lightbox.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+
+    {{-- 設定タブ --}}
+    <ul class="menu">
+        <li><a href="#" class="active" data-id="home">ホーム</a></li>
+        <li><a href="#" data-id="setting">設定</a></li>
+    </ul>
+
     <div id="photomain">
 
         {{-- エラーメッセージ --}}
@@ -26,7 +33,7 @@
         @endif
 
         {{-- 画像一覧表示 --}}
-        <div class="container">
+        <div class="container active" id="home">
             @foreach ($imagesAllPath as $image)
                 <dl class="img">
                     <dd>
@@ -46,14 +53,35 @@
                     {{ method_field('DELETE') }}
                 </form>
             @endforeach
-                @for ($i = 0; $i < 3; $i++)
-                    <dl class="img">
-                    </dl>
-                @endfor
+            @for ($i = 0; $i < 3; $i++)
+                <dl class="img">
+                </dl>
+            @endfor
+
+        </div>
+
+        <div class="container" id="setting">
+            <form method="POST" action="/setting">
+                <ul class="setting">
+                    <li>
+                        <h3>削除方式</h3>
+                        <input type="radio" name="delMethod" value="softDel" checked="checked">ソフトデリート
+                        <input type="radio" name="delMethod" value="hardDel">ハードデリート
+                    </li>
+                    <hr>
+                    <li>
+                        <h3>リセット</h3>
+                        <p>全ての情報を削除します。</p>
+                        完全削除<input type="checkbox" name="allDelete" value="tes">
+                    </li>
+                </ul>
+                @csrf
+                <input type="submit" value="設定を確定">
+            </form>
         </div>
 
         {{-- 画像アップロードフォーム --}}
-        <form id="uploadForm" method="POST" action="" enctype="multipart/form-data">
+        <form class="active" id="uploadForm" method="POST" action="" enctype="multipart/form-data">
             <input type="file" multiple name="images[]">
             @csrf
             <input type="submit" value="アップロード">
