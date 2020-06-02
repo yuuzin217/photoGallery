@@ -1,6 +1,9 @@
 body {
   margin: 0;
   font-family: Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 header h1 {
   margin: 0;
@@ -18,4 +21,5 @@ footer {
   color: #fff;
   padding: 64px 0;
   text-align: center;
+  margin-top: auto;
 }
