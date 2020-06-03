@@ -52,13 +52,13 @@
                     @csrf
                     {{ method_field('DELETE') }}
                 </form>
-                @for ($i = 0; $i < 3; $i++)
-                    <dl class="img">
-                    </dl>
-                @endfor
             @empty
                 <p>画像なし</p>
             @endforelse
+            @for ($i = 0; $i < 3; $i++)
+                <dl class="img">
+                </dl>
+            @endfor
         </div>
 
         <div class="container" id="setting">
@@ -66,8 +66,8 @@
                 <ul class="setting">
                     <li>
                         <h3>削除方式</h3>
-                        <input type="radio" name="delMethod" value="softDel" checked="checked">ソフトデリート
-                        <input type="radio" name="delMethod" value="hardDel">ハードデリート
+                        <input type="radio" name="delMode" value="1" checked="checked">ソフトデリート
+                        <input type="radio" name="delMode" value="2">ハードデリート
                     </li>
                     <hr>
                     <li>
