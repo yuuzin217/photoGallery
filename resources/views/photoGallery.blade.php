@@ -59,8 +59,6 @@
             @empty
                 <p>画像なし</p>
             @endforelse
-
-
         </div>
 
         <div class="container" id="setting">
