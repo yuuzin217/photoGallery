@@ -24,15 +24,17 @@ class photoGalleryModel extends Model
         $imagesAll = photoGalleryModel::select('id', 'original_name', 'path')->get();
 
         // DBから取得したimageパスを配列に格納
-        foreach ($imagesAll as $image) {
-            $id = $image->id;
-            $name = $image->original_name;
-            $path = str_replace($search, $replace, $image->path);
-            $imagesAllPath[] = [
-                'id'   => $id,
-                'name' => $name,
-                'path' => $path,
-            ];
+        if (isset($imagesAll)) {
+            foreach ($imagesAll as $image) {
+                $id = $image->id;
+                $name = $image->original_name;
+                $path = str_replace($search, $replace, $image->path);
+                $imagesAllPath[] = [
+                    'id'   => $id,
+                    'name' => $name,
+                    'path' => $path,
+                ];
+            }
         }
 
         return $imagesAllPath;
@@ -76,7 +78,7 @@ class photoGalleryModel extends Model
     }
 
     /**
-     * 画像の設定
+     * 設定
      *
      * @param array $setData
      */

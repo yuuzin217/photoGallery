@@ -34,7 +34,7 @@
 
         {{-- 画像一覧表示 --}}
         <div class="container active" id="home">
-            @foreach ($imagesAllPath as $image)
+            @forelse ($imagesAllPath as $image)
                 <dl class="img">
                     <dd>
                         <a href="{{ $image['path'] }}" data-lightbox="images" data-title="{{ $image['name'] }}">
@@ -52,11 +52,14 @@
                     @csrf
                     {{ method_field('DELETE') }}
                 </form>
-            @endforeach
-            @for ($i = 0; $i < 3; $i++)
-                <dl class="img">
-                </dl>
-            @endfor
+                @for ($i = 0; $i < 3; $i++)
+                    <dl class="img">
+                    </dl>
+                @endfor
+            @empty
+                <p>画像なし</p>
+            @endforelse
+
 
         </div>
 
