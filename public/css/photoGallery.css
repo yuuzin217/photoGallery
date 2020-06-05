@@ -79,6 +79,9 @@ body {
 .setting {
   list-style: none;
 }
+ul {
+  padding: 0;
+}
 #uploadForm.none{
   display: none;
 }
