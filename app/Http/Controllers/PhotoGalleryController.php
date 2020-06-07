@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\PhotoGalleryModel;
 use Illuminate\Http\Request;
 use App\Http\Requests\PhotoGalleryRequest;
+use Auth;
 
 class PhotoGalleryController extends Controller
 {
@@ -15,6 +16,10 @@ class PhotoGalleryController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        // if (Auth::check())
         $model = new PhotoGalleryModel;
         $view = $model->getAllImages();
         return view('photoGallery', compact('view'));
