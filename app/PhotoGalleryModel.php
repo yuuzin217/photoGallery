@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Log;
 use Storage;
+use Auth;
 
 class PhotoGalleryModel extends Model
 {
@@ -40,15 +41,17 @@ class PhotoGalleryModel extends Model
      */
     public function getAllImages(): array
     {
+        // dd(Auth::user()->id);
         $view = $imagesAllPath = [];
         $search  = ["public", "\\"]; // パスを書き換えるのに利用
         $replace = ["storage", ""];  // パスを書き換えるのに利用
         $imagesAll = PhotoGalleryModel::select('id', 'original_name', 'path', 'delete_flg')
             ->where('delete_flg', 1)
+            ->where('user_id', Auth::user()->id)
             ->get();
         $view['delMode'] = DB::table('user_setting')
             ->select('delmode')
-            ->where('user_id', 1)
+            ->where('user_id', Auth::user()->id)
             ->first()
             ->delmode;
 
@@ -86,7 +89,7 @@ class PhotoGalleryModel extends Model
             DB::beginTransaction();
             try {
                 $save = PhotoGalleryModel::create([
-                    'user_id'       => 1, // IDは仮で指定
+                    'user_id'       => Auth::user()->id,
                     'original_name' => $imageName,
                     'path'          => $path
                 ]);
@@ -110,7 +113,7 @@ class PhotoGalleryModel extends Model
     {
         $query = DB::table('user_setting')
             ->select('delmode')
-            ->where('user_id', 1)
+            ->where('user_id', Auth::user()->id)
             ->first();
 
         if ($query->delmode === 1) {
@@ -149,7 +152,7 @@ class PhotoGalleryModel extends Model
         DB::beginTransaction();
         try {
             DB::table('user_setting')
-                ->where('user_id', 1) // IDは仮で指定
+                ->where('user_id', Auth::user()->id)
                 ->update(['delmode' => $setData['delMode']]);
             $check['delmode'] = $this->commit();
         } catch (\Exception $e) {
