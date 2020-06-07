@@ -16,8 +16,8 @@ class PhotoGalleryController extends Controller
     public function index()
     {
         $model = new photoGalleryModel;
-        $imagesAllPath = $model->getAllImages();
-        return view('photoGallery', compact('imagesAllPath'));
+        $view = $model->getAllImages();
+        return view('photoGallery', compact('view'));
     }
 
     /**
@@ -30,8 +30,12 @@ class PhotoGalleryController extends Controller
     {
         $images = $request->images;
         $model = new photoGalleryModel;
-        $model->insertImages($images);
-        return redirect('/')->with('success', '画像をアップロードしました。');
+        $result = $model->insertImages($images);
+        if ($result) {
+            return redirect('/')->with('success', '画像をアップロードしました。');
+        } else {
+            return redirect('/')->with('error', '画像のアップロードに失敗しました。');
+        }
     }
 
     /**
@@ -43,8 +47,10 @@ class PhotoGalleryController extends Controller
     public function delete(string $id)
     {
         $model = new photoGalleryModel;
-        $model->deleteImage($id);
-        return redirect('/')->with('success', '画像を削除しました');
+        if ($model->deleteImage($id)) {
+            return redirect('/')->with('success', '画像を削除しました。');
+        }
+        return redirect('/')->with('error', '画像の削除に失敗しました。');
     }
 
     /**
@@ -56,7 +62,13 @@ class PhotoGalleryController extends Controller
     public function setting(Request $request)
     {
         $model = new photoGalleryModel;
-        $model->setting($request->all());
-        return redirect('/')->with('success', '設定しました');
+        $check = $model->setting($request->all());
+        if (isset($check['allDelete']) && ($check['delmode'] && $check['allDelete'])) {
+            return redirect('/')->with('success', "設定しました。すべての画像を削除しました");
+        } elseif ($check['delmode']) {
+            return redirect('/')->with('success', '設定しました');
+        } else {
+            return redirect('/')->with('error', '設定に失敗しました');
+        }
     }
 }

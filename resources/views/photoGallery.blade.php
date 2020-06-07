@@ -23,6 +23,10 @@
                     @endforeach
                 </ul>
             </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
 
         {{-- 成功メッセージ --}}
@@ -34,7 +38,7 @@
 
         {{-- 画像一覧表示 --}}
         <div class="container active" id="home">
-            @forelse ($imagesAllPath as $image)
+            @forelse ($view['imagesAllPath'] as $image)
                 <dl class="img">
                     <dd>
                         <a href="{{ $image['path'] }}" data-lightbox="images" data-title="{{ $image['name'] }}">
@@ -66,8 +70,8 @@
                 <ul class="setting">
                     <li>
                         <h3>削除方式</h3>
-                        <input type="radio" name="delMode" value="1" checked="checked">ソフトデリート
-                        <input type="radio" name="delMode" value="2">ハードデリート
+                        <input type="radio" name="delMode" value="1" @if ($view['delMode'] === 1) checked="checked" @endif>ソフトデリート
+                        <input type="radio" name="delMode" value="2" @if ($view['delMode'] === 2) checked="checked" @endif>ハードデリート
                     </li>
                     <hr>
                     <li>
