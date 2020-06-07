@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\photoGalleryModel;
+use App\PhotoGalleryModel;
 use Illuminate\Http\Request;
 use App\Http\Requests\PhotoGalleryRequest;
 
@@ -15,7 +15,7 @@ class PhotoGalleryController extends Controller
      */
     public function index()
     {
-        $model = new photoGalleryModel;
+        $model = new PhotoGalleryModel;
         $view = $model->getAllImages();
         return view('photoGallery', compact('view'));
     }
@@ -29,7 +29,7 @@ class PhotoGalleryController extends Controller
     public function store(PhotoGalleryRequest $request)
     {
         $images = $request->images;
-        $model = new photoGalleryModel;
+        $model = new PhotoGalleryModel;
         $result = $model->insertImages($images);
         if ($result) {
             return redirect('/')->with('success', '画像をアップロードしました。');
@@ -46,7 +46,7 @@ class PhotoGalleryController extends Controller
      */
     public function delete(string $id)
     {
-        $model = new photoGalleryModel;
+        $model = new PhotoGalleryModel;
         if ($model->deleteImage($id)) {
             return redirect('/')->with('success', '画像を削除しました。');
         }
@@ -61,7 +61,7 @@ class PhotoGalleryController extends Controller
      */
     public function setting(Request $request)
     {
-        $model = new photoGalleryModel;
+        $model = new PhotoGalleryModel;
         $check = $model->setting($request->all());
         if (isset($check['allDelete']) && ($check['delmode'] && $check['allDelete'])) {
             return redirect('/')->with('success', "設定しました。すべての画像を削除しました");
