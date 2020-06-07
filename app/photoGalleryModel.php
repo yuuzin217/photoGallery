@@ -7,7 +7,7 @@ use DB;
 use Log;
 use Storage;
 
-class photoGalleryModel extends Model
+class PhotoGalleryModel extends Model
 {
     protected $table    = 'images_path';                        // テーブルを指定
     protected $fillable = ['user_id', 'original_name', 'path']; // ホワイトリスト
@@ -43,7 +43,7 @@ class photoGalleryModel extends Model
         $view = $imagesAllPath = [];
         $search  = ["public", "\\"]; // パスを書き換えるのに利用
         $replace = ["storage", ""];  // パスを書き換えるのに利用
-        $imagesAll = photoGalleryModel::select('id', 'original_name', 'path', 'delete_flg')
+        $imagesAll = PhotoGalleryModel::select('id', 'original_name', 'path', 'delete_flg')
             ->where('delete_flg', 1)
             ->get();
         $view['delMode'] = DB::table('user_setting')
@@ -85,7 +85,7 @@ class photoGalleryModel extends Model
 
             DB::beginTransaction();
             try {
-                $save = photoGalleryModel::create([
+                $save = PhotoGalleryModel::create([
                     'user_id'       => 1, // IDは仮で指定
                     'original_name' => $imageName,
                     'path'          => $path
@@ -116,14 +116,14 @@ class photoGalleryModel extends Model
         if ($query->delmode === 1) {
             DB::beginTransaction();
             try {
-                photoGalleryModel::where('id', $id)
+                PhotoGalleryModel::where('id', $id)
                     ->update(['delete_flg' => 0]);
                 return $this->commit();
             } catch (\Exception $e) {
                 return $this->rollback($e);
             }
         } else {
-            $image = photoGalleryModel::find($id);
+            $image = PhotoGalleryModel::find($id);
             DB::beginTransaction();
             try {
                 $image->delete(); // DBから特定の画像データを削除
