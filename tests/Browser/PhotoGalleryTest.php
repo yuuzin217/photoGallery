@@ -18,7 +18,17 @@ class PhotoGalleryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->assertSee('フォトギャラリー')
-                    ->assertSee('ホーム');
+                    ->assertSee('ホーム')
+                    ->click('@setting')
+                    ->assertSee('削除方式')
+                    ->assertSee('リセット')
+                    ->click('@home')
+                    ->attach('@file', '/Users/yuuhibino/Desktop/header.jpg')
+                    ->click('@upload')
+                    ->assertSee('header.jpg')
+                    ->click('.delete')
+                    ->acceptDialog()
+                    ->assertDontSee('<dd>header.jpg</dd>');
         });
     }
 }
