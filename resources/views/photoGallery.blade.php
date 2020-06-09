@@ -8,8 +8,8 @@
 
     {{-- 設定タブ --}}
     <ul class="menu">
-        <li><a href="#" class="active" data-id="home">ホーム</a></li>
-        <li><a href="#" data-id="setting">設定</a></li>
+        <li><a href="#" class="active" data-id="home" dusk="home">ホーム</a></li>
+        <li><a href="#" data-id="setting" dusk="setting">設定</a></li>
     </ul>
 
     <div id="photomain">
@@ -87,9 +87,9 @@
 
         {{-- 画像アップロードフォーム --}}
         <form class="active" id="uploadForm" method="POST" action="" enctype="multipart/form-data">
-            <input type="file" multiple name="images[]">
+            <input type="file" dusk="file" multiple name="images[]">
             @csrf
-            <input type="submit" value="アップロード">
+            <input type="submit" dusk="upload" value="アップロード">
         </form>
 
     </div>
