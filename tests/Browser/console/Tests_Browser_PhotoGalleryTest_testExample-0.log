@@ -1,0 +1,8 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/127.0.0.1:8000\/js\/photoGallery.js 7:14 Uncaught ReferenceError: $test is not defined",
+        "source": "javascript",
+        "timestamp": 1591675082150
+    }
+]
